@@ -40,5 +40,26 @@ Worker Node:
   - kube-proxy: Manages networking for the pods, handling communication both within the cluster and with the outside world.
   - container runtime: The software responsible for running the containers (e.g. docker, containerd)
 
+kubectl:
+- Is the command-line tool used to interact with a Kubernetes cluster
+- It allows you to manage Kubernetes resources, deploy applications, view logs, etc
+- Basic syntax:
+  - kubectl [command] [TYPE] [NAME] [flags]
+  - command: The action you want to perform (e.g., get, apply, delete).
+  - TYPE: The type of Kubernetes resource (e.g., pod, service, deployment).
+  - NAME: The name of the resource (optional, depending on the command).
+  - flags: Optional parameters to modify the command's behavior.
+- Common commands:
+  - List all pods (in default namespace): kubectl get pods
+  - Detailed info about a specific pod: kubectl describe pod [pod-name]
+  - List all nodes in the cluster: kubectl get nodes
+  - Create a resource from a YAML file: kubectl apply -f [file.yaml]
+  - Create a deployment directly from a image: kubectl create deployment [deployment-name] --image=[image-name]
+  - Scale a deployment: kubectl scale deployment [deployment-name] --replicas=[number]
+  - Delete a specific pod: kubectl delete pod [pod-name]
+  - View logs of a specific pod: kubectl logs [pod-name]
+  - View all namespaces: kubectl get namespaces
 
-
+What is a Pod?
+- A pod is the smallest and most basic deployable unit.
+- 
