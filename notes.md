@@ -18,7 +18,7 @@ What can you do with Kubernetes?
   - Define the desired state of your system, and Kubernetes works to maintain that state
 
 What is a Kubernetes cluster?
-- A Kubernetes cluster is a set of nodes (group of machines) that work together to run containerized applications managed by Kubernetes. 
+- A Kubernetes cluster is a set of nodes (group of machines) that work together to run containerized applications. 
 - The cluster consists of at least one master (control plane) node and multiple worker nodes.
 
 What is a Node?
@@ -36,7 +36,7 @@ Master node (Control Plane):
 Worker Node:
 - Worker nodes are where the actual application workloads run. They host the pods, which are the smallest deployable units in Kubernetes.
 - Components:
-  - kubelet: An agent that runs on each worker node, responsible for maintaining the state of the pods on that node and communicating with the control plane
+  - kubelet: An agent that runs on each worker node, responsible for ensuring that the containers are running on the node as expected and communicate with the control plane.
   - kube-proxy: Manages networking for the pods, handling communication both within the cluster and with the outside world.
   - container runtime: The software responsible for running the containers (e.g. docker, containerd)
 
@@ -61,5 +61,30 @@ kubectl:
   - View all namespaces: kubectl get namespaces
 
 What is a Pod?
-- A pod is the smallest and most basic deployable unit.
-- 
+- A pod is the smallest deployable unit that you can create and manage in kubernetes. You can think of them as a wrapper around containers
+- A pod is a group of one or more containers, with shared storage and network resources, and a specification for how to run the containers
+- A pod typically contains only one container (but can have more)
+- Scaling an application is done by increasing/decreasing the number of pod replicas.
+- To create a pod: 
+  - Create a YAML file with the specifications of the pod and apply it
+  - Use the command: kubectl run pod-name --image=image-name (not pref)
+- Pod states:
+  - Pending:  The pod has been accepted by the cluster but isn't running yet.
+  - Running: The Pod has been bound to a node, and all of its containers have been created. At least one container is still running or in the process of starting/restarting.
+  - Succeeded: All containers in the pod have terminated successfully and won't be restarted.
+  - Failed: All containers in the Pod have terminated, and at least one container has terminated in a failure (exit code not equal to 0).
+  - CrashLoopBackOff: The Pod is trying to start, but one or more containers are repeatedly failing.
+
+YAML files and Kubernetes:
+- Kubernetes uses YAML files as input for creating objects such as Pods, ReplicaSets, Deployments, Services, etc
+- YAML files are structured as key-value pairs, with keys and values separated by a colon
+- Indentation is used to denote hierarchy and relationships between elements
+- A basic Kubernetes YAML file generally contains the following sections:
+  - apiVersion: Specifies the API version used for the resource.
+  - kind: Defines the type of Kubernetes resource you are creating
+  - metadata: Provides metadata about the resource, such as its name, namespace, and labels.
+    - name: The name of the resource
+    - labels: Key-value pairs that can be used to categorize and organize the resource
+  - spec: Describes the desired state of the resource. 
+
+
