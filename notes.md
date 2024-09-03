@@ -56,7 +56,7 @@ kubectl:
   - Create a resource from a YAML file: kubectl apply -f [file.yaml]
   - Create a deployment directly from a image: kubectl create deployment [deployment-name] --image=[image-name]
   - Scale a deployment: kubectl scale deployment [deployment-name] --replicas=[number]
-  - Delete a specific pod: kubectl delete pod [pod-name]
+  - Delete a replicaset: kubectl delete replicaset [replicaset-name]
   - View logs of a specific pod: kubectl logs [pod-name]
   - View all namespaces: kubectl get namespaces
 
@@ -70,13 +70,13 @@ What is a Pod?
   - Use the command: kubectl run pod-name --image=image-name (not pref)
 - Pod states:
   - Pending:  The pod has been accepted by the cluster but isn't running yet.
-  - Running: The Pod has been bound to a node, and all of its containers have been created. At least one container is still running or in the process of starting/restarting.
+  - Running: At least one container is still running or in the process of starting/restarting.
   - Succeeded: All containers in the pod have terminated successfully and won't be restarted.
   - Failed: All containers in the Pod have terminated, and at least one container has terminated in a failure (exit code not equal to 0).
   - CrashLoopBackOff: The Pod is trying to start, but one or more containers are repeatedly failing.
 
 YAML files and Kubernetes:
-- Kubernetes uses YAML files as input for creating objects such as Pods, ReplicaSets, Deployments, Services, etc
+- Kubernetes uses YAML files as input for creating resources such as Pods, ReplicaSets, Deployments, Services, etc
 - YAML files are structured as key-value pairs, with keys and values separated by a colon
 - Indentation is used to denote hierarchy and relationships between elements
 - A basic Kubernetes YAML file generally contains the following sections:
@@ -87,4 +87,18 @@ YAML files and Kubernetes:
     - labels: Key-value pairs that can be used to categorize and organize the resource
   - spec: Describes the desired state of the resource. 
 
+What is a ReplicaSet?
+- A ReplicaSet is a fundamental Kubernetes resource which ensures that a specified number of pod replicas are running at any given time. 
+- It maintains the desired state by automatically creating or deleting Pods to match the specified replica count...providing high availability, fault tolerance, and scalability for your applications.
+- Components of a ReplicaSet:
+  - apiVersion: Specifies the API version (e.g., apps/v1).
+  - kind: Identifies the resource type (ReplicaSet).
+  - metadata: Contains metadata such as name, labels, and annotations
+  - spec: Defines the desired state, including:
+    - replicas: Number of desired Pod replicas.
+    - selector: Defines how the ReplicaSet identifies the Pods it manages using labels.
+    - template: Specifies the Pod template used to create new Pods.
+- To create a ReplicaSet: Create a YAML file with the specifications of the ReplicaSet and apply it
+- While ReplicaSets are crucial for maintaining the number of Pod replicas, they are rarely used directly in modern Kubernetes workflows.
+- Instead, Deployments are used to manage ReplicaSets, providing a higher level of abstraction and additional features like rolling updates and rollbacks.
 
