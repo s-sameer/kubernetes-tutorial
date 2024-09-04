@@ -89,7 +89,7 @@ YAML files and Kubernetes:
 
 What is a ReplicaSet?
 - A ReplicaSet is a fundamental Kubernetes resource which ensures that a specified number of pod replicas are running at any given time. 
-- It maintains the desired state by automatically creating or deleting Pods to match the specified replica count...providing high availability, fault tolerance, and scalability for your applications.
+- It maintains the desired state by automatically creating or deleting Pods to match the specified replica count, providing high availability, scalability, and fault tolerance for your applications.
 - Components of a ReplicaSet:
   - apiVersion: Specifies the API version (e.g., apps/v1).
   - kind: Identifies the resource type (ReplicaSet).
@@ -101,4 +101,41 @@ What is a ReplicaSet?
 - To create a ReplicaSet: Create a YAML file with the specifications of the ReplicaSet and apply it
 - While ReplicaSets are crucial for maintaining the number of Pod replicas, they are rarely used directly in modern Kubernetes workflows.
 - Instead, Deployments are used to manage ReplicaSets, providing a higher level of abstraction and additional features like rolling updates and rollbacks.
+
+What is a Deployment?
+- A Deployment is a higher-level resource that manages ReplicaSets and provides declarative updates to applications.
+- Key features include rolling updates, rollbacks, and scaling.
+- Components of a Deployment:
+  - apiVersion: Specifies the API version (e.g., apps/v1).
+  - kind: Identifies the resource type (Deployment).
+  - metadata: Contains metadata such as name, labels, and annotations
+  - spec: Defines the desired state, including:
+    - replicas: Number of desired Pod replicas.
+    - selector: Defines how the Deployment identifies the Pods it manages using labels.
+    - template: Specifies the Pod template used to create new Pods.
+    - strategy: Defines the strategy for updating Pods (e.g., rolling update).
+- To create a Deployment: Create a YAML file with the specifications of the Deployment and apply it
+- Deployments strategy:
+  - Rolling Update: Gradually replaces old Pods with new ones, ensuring zero downtime by incrementally updating Pods.
+  - Recreate: Stops all existing Pods and starts new ones, causing a brief downtime.
+
+What is a Service?
+- A Service is a Kubernetes resource that allows you to expose your Pods either internally within the cluster or externally to the internet.
+- Reasons for using a Service:
+  - Provides a stable network endpoint for your Pods, allowing communication between Pods within the cluster.
+  - Allows load balancing across multiple Pods, distributing network traffic evenly.
+  - Enables automatic service discovery and DNS resolution for Pods.
+- Types of Services:
+  - ClusterIP: Exposes the Service on a cluster-internal IP, allowing communication within the cluster only.
+  - NodePort: Exposes the Service on each node's IP at a static port, allowing external users to access the Service.
+  - LoadBalancer: Integrates with cloud providers' load balancers to provide external access to the Service.
+- Components of a Service:
+  - apiVersion: Specifies the API version (e.g., v1).
+  - kind: Identifies the resource type (Service).
+  - metadata: Contains metadata such as name, labels, and annotations
+  - spec: Defines the desired state, including:
+    - selector:  Identifies the Pods the Service routes to, using labels.
+    - ports: Defines the ports on which the Service is exposed.
+    - type: Specifies the type of Service (ClusterIP, NodePort, LoadBalancer).
+- To create a Service: Create a YAML file with the specifications of the Service and apply it
 
