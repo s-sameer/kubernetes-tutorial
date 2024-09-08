@@ -139,3 +139,13 @@ What is a Service?
     - type: Specifies the type of Service (ClusterIP, NodePort, LoadBalancer).
 - To create a Service: Create a YAML file with the specifications of the Service and apply it
 
+What is a Microservice?
+- A microservice is a small, independently deployable service that performs a specific function or task.
+- Microservices are part of a larger application and are designed to be small, focused and loosely coupled, allowing for greater flexibility and scalability in application development.
+- They are often used in conjunction with containerization and orchestration platforms like Kubernetes to facilitate the deployment, scaling, and management of these services.
+
+- General steps for deploying an app on kubernetes:
+  - Create a docker image of your application and push it to a container registry
+  - Create a Kubernetes Pod/Deployment of the image using a YAML file
+  - Create Services to expose the Pods/Deployments within the cluster or to the internet
+  
